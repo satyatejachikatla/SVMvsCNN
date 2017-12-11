@@ -1,0 +1,3 @@
+HTHOLD=2000
+K=500
+EXT=True
