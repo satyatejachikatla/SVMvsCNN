@@ -26,4 +26,6 @@ iconMap+= glob.glob("Cars/*.jpg")
 for i in range(len(iconMap)):
 	image=Image.open(iconMap[i])
 	scale(image,(256,256)).save(iconMap[i].split('.jpg')[0]+'_resized.jpg')
-	print(i)
+	if(i%500==0):
+
+		print(i)
