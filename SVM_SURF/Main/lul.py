@@ -114,9 +114,7 @@ for file in Flowers_s:
 	Flowers_images.append(cv2.imread(file))
 
 BOW,kps,des=create_bag_of_words(Cars_images+Flowers_images,'SURF',k_size=K)
-
-Cars_kps=[]
-Flowers_kps=[]
+np.save('BOW',BOW)
 
 Cars_des=[]
 Flowers_des=[]
@@ -127,17 +125,14 @@ surf.setHessianThreshold(HTHOLD)
 
 for img in Cars_images:
 	kp,des=surf.detectAndCompute(img, None)
-	Cars_kps.append(kp)
 	Cars_des.append(des)
+Cars_BOW_descriptors = compute_BOW_response(BOW,Cars_images,'SURF',None,None,k_size=K)
+np.save('Cars_feature_vectors',Cars_BOW_descriptors)
+del kp,des,Cars_BOW_descriptors,Cars_images
 
 for img in Flowers_images:
 	kp,des=surf.detectAndCompute(img, None)
-	Flowers_kps.append(kp)
 	Flowers_des.append(des)
-
-Cars_BOW_descriptors = compute_BOW_response(BOW,Cars_images,'SURF',Cars_kps,Cars_des,k_size=K)
-Flowers_BOW_descriptors = compute_BOW_response(BOW,Flowers_images,'SURF',Flowers_kps,Flowers_des,k_size=K)
-
-np.save('Cars_feature_vectors',Cars_BOW_descriptors)
+Flowers_BOW_descriptors = compute_BOW_response(BOW,Flowers_images,'SURF',None,None,k_size=K)
 np.save('Flowers_feature_vectors',Flowers_BOW_descriptors)
-np.save('BOW',BOW)
+del kp,des,Flower_BOW_descriptors,Flowers_images
